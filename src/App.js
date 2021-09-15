@@ -11,7 +11,7 @@ function App() {
           This was coded by {" "}
           <a href="https://adoring-haibt-562efa.netlify.app/">Amanda Hotchkiss</a>
           {" "} and is open-sourced on {" "} 
-          <a href="https://github.com/hotkiss1011/react-weather-project" target="_blank">GitHub</a>
+          <a href="https://github.com/hotkiss1011/react-weather-project">GitHub</a>
         </footer>
       </div>
     </div>
