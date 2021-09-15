@@ -8,7 +8,9 @@ function App() {
       <div className="container">
         <Weather />
         <footer>
-          This was coded by Amanda Hotchkiss and is open-sourced on {" "} 
+          This was coded by {" "}
+          <a href="https://adoring-haibt-562efa.netlify.app/">Amanda Hotchkiss</a>
+          {" "} and is open-sourced on {" "} 
           <a href="https://github.com/hotkiss1011/react-weather-project" target="_blank">GitHub</a>
         </footer>
       </div>
