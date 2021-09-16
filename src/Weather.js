@@ -1,7 +1,24 @@
-import React from "react";
+import axios from "axios";
+import React, { useState } from "react";
 import "./Weather.css";
 
-export default function Weather() {
+export default function Weather(props) {
+  const [weatherData, setWeatherData] = useState({ready: false});
+
+  function handleResponse(response) {
+    setWeatherData({
+
+      temp: Math.round(response.data.main.temp),
+      humidity: response.data.main.humidity,
+      wind: response.data.wind.speed,
+      city: response.data.name,
+      desc: response.data.weather[0].description,
+      iconURL: "https://ssl.gstatic.com/onebox/weather/64/partly_cloudy.png",
+      date: "Wednesday 07:00"
+    });
+  }
+
+  if (weatherData.ready) {
     return (
       <div className="Weather">
         <form>
@@ -23,17 +40,17 @@ export default function Weather() {
             </div>
           </div>
         </form>
-        <h1>New York</h1>
+        <h1>{weatherData.city}</h1>
         <ul>
-          <li>Wednesday</li>
-          <li>Mostly Cloudy</li>
+          <li>{weatherData.date}</li>
+          <li className="text-capitalize">{weatherData.desc}</li>
         </ul>
         <div className="row">
           <div className="col-6">
             <div className="clearfix">
               <img
-                src="https://ssl.gstatic.com/onebox/weather/64/sunny.png"
-                alt="Mostly Cloudy"
+                src={weatherData.iconURL}
+                alt={weatherData.desc}
                 className="float-left"
               />
               <span className="tempAndUnits">
@@ -44,12 +61,19 @@ export default function Weather() {
           </div>
           <div className="col-6">
             <ul>
-              <li>Precipitation: 15%</li>
-              <li>Humidity: 72%</li>
-              <li>Wind: 2 mph</li>
+              <li>Precipitation: {weatherData.rain}%</li>
+              <li>Humidity: {weatherData.humidity}%</li>
+              <li>Wind: {weatherData.wind} mph</li>
             </ul>
           </div>
         </div>
       </div>
     );
+  } else {
+    const apiKey = "05992a658e151609dfa497fc6c2796f2";
+    let apiURL = `https://api.openweathermap.org/data/2.5/weather?q=${props.defaultCity}&appid=${apiKey}&units=imperial`;
+    axios.get(apiURL).then(handleResponse);
+
+    return "Loading...";
+  }
 }
