@@ -22,6 +22,9 @@ export default function WeatherInfo(props) {
               <span className="tempAndUnits">
                 <span className="temp">{props.data.temp}</span>
                 <span className="units">°C</span>
+              <span className="float-left">
+                <WeatherIcon code={props.data.icon} />
+              </span>
               </span>
             </div>
           </div>
