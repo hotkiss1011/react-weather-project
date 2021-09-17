@@ -13,11 +13,11 @@ export default function Weather(props) {
       ready: true,
       temp: Math.round(response.data.main.temp),
       humidity: response.data.main.humidity,
+      date: new Date(response.data.dt * 1000),
+      desc: response.data.weather[0].description,
+      icon: response.data.weather[0].icon,
       wind: Math.round(response.data.wind.speed),
       city: response.data.name,
-      desc: response.data.weather[0].description,
-      icon: `http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`,
-      date: new Date(response.data.dt * 1000),
     });
   }
 
