@@ -8,31 +8,32 @@ export default function Weather(props) {
   const [city, setCity] = useState(props.defaultCity);
 
   function handleResponse(response) {
+    console.log(response);
     setWeatherData({
       ready: true,
       temp: Math.round(response.data.main.temp),
       humidity: response.data.main.humidity,
-      wind: response.data.wind.speed,
+      wind: Math.round(response.data.wind.speed),
       city: response.data.name,
       desc: response.data.weather[0].description,
-      iconURL: "https://ssl.gstatic.com/onebox/weather/64/partly_cloudy.png",
+      icon: `http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`,
       date: new Date(response.data.dt * 1000),
     });
+  }
+
+  function handleSubmit(event) {
+    event.preventDefault();
+    search();
+  }
+
+  function handleCityChange(event) {
+    setCity(event.target.value);
   }
 
   function search() {
     const apiKey = "1855e7cc439afb5e695c7a967c800d7c";
     let apiURL = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=imperial`;
     axios.get(apiURL).then(handleResponse);
-  }
-
-  function handleSubmit(event) {
-    event.preventDefault();
-    search(city);
-  }
-
-  function handleCityChange(event) {
-    setCity(event.city.value);
   }
 
   if (weatherData.ready) {
@@ -46,6 +47,7 @@ export default function Weather(props) {
                 placeholder="Enter a city..."
                 className="form-control"
                 autoFocus="on"
+                onChange={handleCityChange}
               />
             </div>
             <div className="col-3">

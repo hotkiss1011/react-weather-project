@@ -15,19 +15,18 @@ export default function WeatherInfo(props) {
           <div className="col-6">
             <div className="clearfix">
               <img
-                src={props.data.iconURL}
+                src={props.data.icon}
                 alt={props.data.desc}
                 className="float-left"
               />
               <span className="tempAndUnits">
-                <span className="temp">6</span>
+                <span className="temp">{props.data.temp}</span>
                 <span className="units">°C</span>
               </span>
             </div>
           </div>
           <div className="col-6">
             <ul>
-              <li>Precipitation: {props.data.rain}%</li>
               <li>Humidity: {props.data.humidity}%</li>
               <li>Wind: {props.data.wind} mph</li>
             </ul>
